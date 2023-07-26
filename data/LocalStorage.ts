@@ -32,6 +32,13 @@ class LocalStorage {
         return this.reloaded;
     }
 
+    static resetStorage = () => {
+        this.token  = "";
+        this.expiration = "";
+        this.role = "";
+        this.reloaded = "";
+    }
+
 
 
 } export default LocalStorage;

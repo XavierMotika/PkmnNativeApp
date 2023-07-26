@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 import AuthenticationService from "services/Authentication";
-import { Button, Text, TextInput, View } from "react-native";
+import { Button, ImageBackground, Text, TextInput, View } from "react-native";
 import styles from "./style";
+
 
 interface Props {
   setIsAuthenticated: Function;
+  
 }
-
+const image = {uri: 'https://cdn.dribbble.com/users/1407587/screenshots/3014076/media/48ac35c2ae3f68e2d2f0a346f5d1f1de.gif'};
 const Login = ({ setIsAuthenticated }: Props) => {
   const [error, setError] = useState<boolean>(false);
 
@@ -24,6 +26,7 @@ const Login = ({ setIsAuthenticated }: Props) => {
   });
 
   return (
+    <ImageBackground source={image} resizeMode="cover" style={styles.image}>
       <Formik 
       
       initialValues={{login: "" , password: ""}}
@@ -37,20 +40,23 @@ const Login = ({ setIsAuthenticated }: Props) => {
         setError(!ok);
       });
     }}>
-      {({ handleChange, handleBlur, handleSubmit, values } : any) => (
-        <View
-        style={styles.container}>
-        <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login} 
-        onBlur={handleBlur('login')} placeholder="Entrer le nom d'utilisateur" // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
-        />
-        <TextInput style={styles.input} onChangeText={handleChange('password')} value={values.password} 
-        onBlur={handleBlur('password')} placeholder="Entrer le mot de passe" secureTextEntry={true} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
-        />
-        <Button onPress={handleSubmit} title="Submit" />
-        <Text>{error ? "connexion impossible" : ""}</Text>
-        </View>
+      {({ handleChange, handleBlur, handleSubmit, values }) => (
+        
+          <View style={styles.inputContainer}>
+            <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
+            onBlur={handleBlur('login')} placeholder="Entrer le nom d'utilisateur" />
+            <TextInput style={styles.input} onChangeText={handleChange('password')} value={values.password} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
+            onBlur={handleBlur('password')} placeholder="Entrer le mot de passe" secureTextEntry={true} />  
+            <Button onPress={()=> handleSubmit} title="Se connecter" />
+            <Text >{error ? "connexion impossible" : ""}</Text>
+          </View>     
       )}
+      
       </Formik>
+    </ImageBackground>
+    
+
+      
   );
 };
 

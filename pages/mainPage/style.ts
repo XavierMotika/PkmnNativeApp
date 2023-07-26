@@ -4,23 +4,27 @@ const styles = StyleSheet.create({
     container: {
       flex: 10,
       backgroundColor: '#fff',
-      alignItems: 'center',
+
       justifyContent: 'center',
       
     },
     titleContainer : {
         flex: 1,
         borderStyle: 'solid',
-        backgroundColor: '#aaa',
+        backgroundColor: '#DF0101',
         borderColor : '#000',
         padding : 10,
         borderWidth : 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         
     },
     optionsRow: {
         flex: 1.2,
         alignItems: 'center',
         flexDirection: 'row',
+        justifyContent: 'center',
+        paddingBottom: 10
       },
     optionsText: {
         flex: 1,

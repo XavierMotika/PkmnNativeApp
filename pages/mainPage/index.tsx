@@ -4,20 +4,27 @@ import Title from 'components/Title';
 import { StatusBar } from 'expo-status-bar';
 
 import styles from 'pages/mainPage/style';
+import LocalStorage from 'data/LocalStorage';
+import Login from 'pages/login';
 
-const PlaceholderImage : {uri : string} = require('C:/Users/Stagiaire/Documents/workspace/front/PokemonNativeApp/assets/images/Kanto.png');
+const PlaceholderImage : {uri : string} = require('D:/Env/workspace/front/PkmnNativeApp/assets/images/Kanto.png');
 
 const MainPage = () => {
 
-    function goToTeam() {
+    function goToTeam ()  {
         throw new Error('Function not implemented.');
       }
     
-      function goToDex() {
+    function goToDex() {
         throw new Error('Function not implemented.');
       }
 
+    function exitApp() {
+      LocalStorage.resetStorage();
+    }
+
     return(
+
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Title/>
@@ -32,11 +39,11 @@ const MainPage = () => {
       </View>
       
       <View style={styles.optionsRow}>
-          <CircleButton buttonLabel='Equipe' onPress={null} />
-          <CircleButton buttonLabel='Pokédex' onPress={null} />
-          <CircleButton buttonLabel='Quitter' onPress={null} />
+          <CircleButton buttonLabel='Equipe' onPress={goToTeam} />
+          <CircleButton buttonLabel='Pokédex' onPress={goToDex} />
+          <CircleButton buttonLabel='Quitter' onPress={exitApp} />
       </View>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View> 
     )
 

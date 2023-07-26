@@ -10,7 +10,7 @@ class AuthenticationService {
   // grace aux informations données dans le login. Ces informations sont stockées dans le body
   // d'une requête de type POST, response est renvoyé sous forme de json.
   static async call(login: LoginRequest): Promise<LoginResponse | undefined> {
-    const response = await fetch("http://192.168.1.147:8080/auth/signin", {
+    const response = await fetch("http://10.188.197.139:8080/auth/signin", {
       method: "POST",
       body: JSON.stringify(login),
       headers: { "Content-Type": "application/json" },
