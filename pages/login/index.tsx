@@ -40,14 +40,14 @@ const Login = ({ setIsAuthenticated }: Props) => {
         setError(!ok);
       });
     }}>
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
+      {({ handleChange, handleBlur, handleSubmit, values }: any) => (
         
           <View style={styles.inputContainer}>
             <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
             onBlur={handleBlur('login')} placeholder="Entrer le nom d'utilisateur" />
             <TextInput style={styles.input} onChangeText={handleChange('password')} value={values.password} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
             onBlur={handleBlur('password')} placeholder="Entrer le mot de passe" secureTextEntry={true} />  
-            <Button onPress={()=> handleSubmit} title="Se connecter" />
+            <Button onPress={handleSubmit} title="Se connecter" />
             <Text >{error ? "connexion impossible" : ""}</Text>
           </View>     
       )}

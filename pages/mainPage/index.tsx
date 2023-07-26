@@ -12,11 +12,11 @@ const PlaceholderImage : {uri : string} = require('D:/Env/workspace/front/PkmnNa
 const MainPage = () => {
 
     function goToTeam ()  {
-        throw new Error('Function not implemented.');
+        null
       }
     
     function goToDex() {
-        throw new Error('Function not implemented.');
+        null
       }
 
     function exitApp() {

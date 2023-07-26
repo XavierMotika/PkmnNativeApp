@@ -4,8 +4,6 @@ import MainPage from 'pages/mainPage';
 import { useState } from 'react';
 
 import AuthenticationService from 'services/Authentication';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 
 
