@@ -1,10 +1,9 @@
 class LocalStorage {
 
-    private static token : string = "";
-    private static expiration: string = "";
-    private static role: string = "";
-    private static reloaded: string = "";
-
+    private static token : string  = "";
+    private static expiration: string  = "";
+    private static role: string  = "";
+    private static reloaded: string  = ""; 
     
     static setToken = (pToken : string) => {
         this.token = pToken;
@@ -36,7 +35,7 @@ class LocalStorage {
         this.token  = "";
         this.expiration = "";
         this.role = "";
-        this.reloaded = "";
+        this.reloaded = "true";
     }
 
 

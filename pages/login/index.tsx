@@ -4,15 +4,18 @@ import * as yup from "yup";
 import AuthenticationService from "services/Authentication";
 import { Button, ImageBackground, Text, TextInput, View } from "react-native";
 import styles from "./style";
+import LocalStorage from "data/LocalStorage";
 
 
 interface Props {
   setIsAuthenticated: Function;
   
 }
+
 const image = {uri: 'https://cdn.dribbble.com/users/1407587/screenshots/3014076/media/48ac35c2ae3f68e2d2f0a346f5d1f1de.gif'};
 const Login = ({ setIsAuthenticated }: Props) => {
   const [error, setError] = useState<boolean>(false);
+  
 
   const validationSchema = yup.object().shape({
     login: yup
@@ -38,6 +41,7 @@ const Login = ({ setIsAuthenticated }: Props) => {
       ).then((ok)=>{
         setIsAuthenticated(ok);
         setError(!ok);
+        
       });
     }}>
       {({ handleChange, handleBlur, handleSubmit, values }: any) => (

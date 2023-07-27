@@ -2,6 +2,7 @@
 import LocalStorage from "data/LocalStorage";
 import LoginRequest from "../models/security/loginRequest";
 import LoginResponse from "../models/security/loginResponse";
+import adress from "app.json";
 
 
 class AuthenticationService {
@@ -10,7 +11,8 @@ class AuthenticationService {
   // grace aux informations données dans le login. Ces informations sont stockées dans le body
   // d'une requête de type POST, response est renvoyé sous forme de json.
   static async call(login: LoginRequest): Promise<LoginResponse | undefined> {
-    const response = await fetch("http://10.188.197.139:8080/auth/signin", {
+    
+    const response = await fetch( "http://"+adress.ipv4+"/auth/signin", {
       method: "POST",
       body: JSON.stringify(login),
       headers: { "Content-Type": "application/json" },
@@ -50,21 +52,19 @@ class AuthenticationService {
     const jwt = LocalStorage.getToken();
 
     if (expiration !== null && Date.parse(expiration)>Date.now() && jwt !== null){
-      
       return jwt !== undefined; 
     } else {
       LocalStorage.setToken("");
       LocalStorage.setExpiration("");
       LocalStorage.setRole("");
       if (LocalStorage.getReloaded()!== 'true'){
-        
         LocalStorage.setReloaded('true');
       }
       return false;
     }
   }
 
-  static getJwt() : any {
+  static getJwt() : string  {
     this.isAuthenticated()
     return LocalStorage.getToken();
   }

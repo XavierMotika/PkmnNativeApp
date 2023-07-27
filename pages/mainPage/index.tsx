@@ -1,47 +1,57 @@
-import { Image, Text, View } from 'react-native';
-import CircleButton from 'components/CircleButton';
-import Title from 'components/Title';
+import { Button, Image, Text, View,BackHandler, Alert } from 'react-native'; 
+
 import { StatusBar } from 'expo-status-bar';
 
 import styles from 'pages/mainPage/style';
 import LocalStorage from 'data/LocalStorage';
-import Login from 'pages/login';
 
-const PlaceholderImage : {uri : string} = require('D:/Env/workspace/front/PkmnNativeApp/assets/images/Kanto.png');
+const PlaceholderImage : {uri : string} = require('../../assets/images/Kanto.png'); //à changer avec un API dans le futur
 
-const MainPage = () => {
+const MainPage = ({navigation} : any ) => {
 
-    function goToTeam ()  {
-        null
+    function goToTeam () {
+        navigation.navigate("Team")
       }
     
     function goToDex() {
-        null
+        navigation.navigate("Pokedex")
       }
 
     function exitApp() {
-      LocalStorage.resetStorage();
+      Alert.alert("Quitter l'application", 'Etes-vous sûr ?', [
+        {
+          text: 'Non',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'Oui', onPress: () => ( 
+          LocalStorage.resetStorage(),
+          BackHandler.exitApp())},
+      ]);
+      return true;
     }
 
     return(
 
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Title/>
-      </View>
+
       
       <View style={styles.imageContainer}>
         <Image source={PlaceholderImage} style={styles.image} />
       </View>
-
       <View style={styles.optionsText}>
         <Text >Click on the icons below to navigate the app</Text>
-      </View>
-      
+      </View> 
       <View style={styles.optionsRow}>
-          <CircleButton buttonLabel='Equipe' onPress={goToTeam} />
-          <CircleButton buttonLabel='Pokédex' onPress={goToDex} />
-          <CircleButton buttonLabel='Quitter' onPress={exitApp} />
+        <View style={styles.button}>
+          <Button title='Equipe' onPress={goToTeam} color='#DF0101'/>
+        </View>
+        <View style={styles.button}>
+          <Button title='Pokédex' onPress={goToDex} color='#DF0101'/>
+        </View>
+        <View style={styles.button}>
+          <Button title='Quitter' onPress={exitApp} color='#DF0101'/>
+        </View>
       </View>
       <StatusBar style="light" />
     </View> 

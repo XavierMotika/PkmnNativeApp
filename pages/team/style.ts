@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 10,
       backgroundColor: '#fff',
+
       justifyContent: 'center',
       
     },
@@ -22,9 +23,8 @@ const styles = StyleSheet.create({
         flex: 1.2,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingBottom: 10,
-        
+        justifyContent: 'center',
+        paddingBottom: 10
       },
     optionsText: {
         flex: 1,
@@ -41,12 +41,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
       },
-      button: {
-        flex: 1,
-        marginLeft: 10,
-        marginRight: 10
-      }
-
   });
 
   export default styles;
