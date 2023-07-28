@@ -1,24 +1,34 @@
-import { useState } from "react";
+
 import Pokemon from "../../models/pokemon";
-import {View, Button, Image} from "react-native"
+import {Image, Pressable} from "react-native"
 import styles from "./style";
+import PokemonTypeService from "services/typeService";
 
 interface Props {
   pokemon: Pokemon;
+  navigate: any
 }
 
-const PokemonIcon = ({ pokemon }: Props , navigation : any) => {
+const PokemonIcon = ({ pokemon, navigate }: Props ) => {
+
+
   const goTo = () => {
-    navigation.navigate("Details" , {
-        pokmonId: pokemon.id
+    
+    navigate.navigate("Details" , {
+        picture : pokemon.picture,
+        id: pokemon.id,
+        name: pokemon.name,
+        hp: pokemon.hp,
+        cp: pokemon.cp,
+        types : pokemon.types
      });
+     
   };
 
   return (
-    <View style={styles.container}>
+      <Pressable style={styles.container} onPress={goTo}>
         <Image source={{uri : pokemon.picture}} style={styles.image}/>
-    </View>
-        
+      </Pressable>     
   );
 };
 

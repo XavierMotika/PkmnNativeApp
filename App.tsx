@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import AuthenticationService from 'services/Authentication';
 import Team from 'pages/team';
+import Details from 'pages/details';
 
 
 
@@ -26,6 +27,7 @@ export default function App() {
             <Stack.Screen name="MainPage" component={MainPage} options={{ title: 'Page Principale'}}/>
             <Stack.Screen name="Pokedex" component={Pokedex} options={{ title: 'Pokédex'}}/>
             <Stack.Screen name="Team" component={Team} options={{ title: 'Equipe'}}/>
+            <Stack.Screen name="Details" component={Details} options={{ title : 'Fiche Pokémon'}}/>
           </Stack.Navigator>
           ):(
           <Login setIsAuthenticated={setIsAuthenticated} />

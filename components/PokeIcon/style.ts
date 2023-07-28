@@ -7,19 +7,18 @@ const styles = StyleSheet.create({
     },
     container:{
         flex: 1,
-        borderColor: "#DF0101",
-        shadowColor: "#000",
+        borderColor: "#000",
         borderWidth: 1,
         margin: 5,
-        height: 80,
-        width: 80,
+        height: 100,
+        width: 100,
         borderRadius: 5,
-
+        padding: 1
     },
     image:{
         flex: 1,
-        height: 70,
-        width: 70, 
+        height: 95,
+        width: 95, 
         alignSelf: "center"
     }
   });

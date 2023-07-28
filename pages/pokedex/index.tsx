@@ -9,7 +9,7 @@ import PokemonService from 'services/pokemonService';
 import Pokemon from 'models/pokemon';
 import PokemonList from 'components/PokeList';
 
-const Pokedex = () => {
+const Pokedex = ({navigation} : any ) => {
     
     const [searchText, setSearchText] = useState<string>("");
     const [pokeList, setPokeList] = useState<Pokemon[]>();
@@ -27,7 +27,7 @@ const Pokedex = () => {
     <View style={styles.container}>
         <PokemonSearch searchUpdate={setSearchText}/>
         <View style={styles.list}>
-            <PokemonList pokemons={pokeList} />
+            <PokemonList pokemons={pokeList} navigate={navigation}/>
         </View>
         <StatusBar style="light" />
     </View> 
