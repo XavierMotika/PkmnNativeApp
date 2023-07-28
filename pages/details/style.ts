@@ -2,8 +2,12 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
     container:{
-        padding: 10,
-        borderWidth: 1,
+        flex:1,
+        padding : 10,
+        justifyContent:"space-between"
+    },
+    top:{
+
     },
     image : {
         height: 300,
@@ -15,28 +19,18 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         fontSize: 25,
     },
-    rowData : {
-        flexDirection: "row",
-        justifyContent:"space-evenly"
-    },
-    rowBloc : {
-        flex:1,
-        flexDirection: "column",
-        justifyContent:"space-evenly"
-    },
     dataTitle : {
-        alignSelf: "center",
-        fontSize: 15,
-    },
-    data : {
-        alignSelf: "center",
-        fontSize: 30,
+        fontSize: 20,
     },
     list : {
         marginBottom:10,
         alignSelf:"center",
         width: 300
     },
+    bottom :{
+        flexDirection: "row",
+        justifyContent:"space-evenly",
+    }
     
   });
 

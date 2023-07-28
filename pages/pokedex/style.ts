@@ -5,7 +5,9 @@ const styles = StyleSheet.create({
       flex: 1
     },
     list: {
-      flex: 10
+      flex: 10,
+      alignSelf:"center",
+      paddingTop: 5
     }
   });
 

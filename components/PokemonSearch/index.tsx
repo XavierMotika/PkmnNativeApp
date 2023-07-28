@@ -6,15 +6,15 @@ interface Props {
 }
 
 const PokemonSearch = ({ searchUpdate }: Props) => {
-  function handleChange(event: NativeSyntheticEvent<TextInputChangeEventData>) {
-    searchUpdate(event.target.toString);
+  function handleChange(text : string) {
+    searchUpdate(text);
   }
 
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Search"
-        onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => handleChange(e)}
+        onChangeText={(text)=>handleChange(text)}
       />
     </View>
   );
