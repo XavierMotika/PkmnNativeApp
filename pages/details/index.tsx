@@ -1,6 +1,7 @@
 import {Image, Text, View, FlatList, Button } from "react-native";
 import styles from "./style";
 import ChipType from "components/ChipType";
+import { string } from "yup";
 
 const Details = ({route , navigation}: any) => {
 const { picture ,id, name,hp,cp,types} = route.params;
@@ -12,30 +13,17 @@ function addZeroes (id : number) {
         return "00"
     } else return "0"
 }
-    function setColorCP(cp: number): import("react-native").ColorValue | undefined {
-        const test : number = cp/4500*300;
-        if (test < 75){
-            return "#DF0101"
-        } else if (test > 75 && test < 150){
-            return "#D7DF01"
-        } else if (test > 150 && test < 225) {
-            return "#01DF01"
-        } else if (test > 225){
-            return "#01DFD7"
-        } 
-    }
-
-    function setColorHP(hp: number): import("react-native").ColorValue | undefined {
-        const test : number = hp/400*300;
-        if (test < 75){
-            return "#DF0101"
-        } else if (test > 75 && test < 150){
-            return "#D7DF01"
-        } else if (test > 150 && test < 225) {
-            return "#01DF01"
-        } else if (test > 225){
-            return "#01DFD7"
-        } 
+    function setColor(cp: number, testNumber : number): import("react-native").ColorValue | undefined {
+        const test : number = cp/testNumber*100;
+        const colors : string [] = ["#FA0000","#FA7F00","#FAFA00","#7FFA00","#00FA00","#00FA7F","#00FAFA","#007FFA","#7F00FA"];
+        let interation : number = 9;
+        for (let i = 100; i > 0 ; i=i-10 ){
+            if (i < test) {
+                return colors[interation];
+            }
+            interation--;
+        }
+        return colors[0];
     }
 
   return (
@@ -45,13 +33,13 @@ function addZeroes (id : number) {
                 Numéro #{addZeroes(id)}{id} : {name}
             </Text>
             <Image source={{uri : picture}} style={styles.image}/>
-            <FlatList style={styles.list} data={types} numColumns={4} columnWrapperStyle={{justifyContent : "space-around"}}
+            <FlatList style={styles.list} data={types} numColumns={2} columnWrapperStyle={{justifyContent : "space-around"}}
             renderItem={(type) => <ChipType typeId={type.item}/>}/>
             <View style={{flexDirection:"column", paddingHorizontal:20, paddingVertical:10}}>
                 <Text style={styles.dataTitle}>
                     Points de vie : 
                 </Text>
-                <View style={{alignSelf:"flex-start", width:(hp/400*300),minWidth: 50, borderWidth: 1, borderRadius: 20, backgroundColor:(setColorHP(hp))}}>
+                <View style={{alignSelf:"flex-start", width:(hp/400*300),minWidth: 50, borderWidth: 1, borderRadius: 20, backgroundColor:(setColor(hp,350))}}>
                     <Text style={{alignSelf: "center",fontSize: 20,  maxHeight: 30, }}>
                         {hp}
                     </Text>
@@ -61,7 +49,7 @@ function addZeroes (id : number) {
                 <Text style={styles.dataTitle}>
                     Puissance de combat :
                 </Text>
-                <View style={{alignSelf:"flex-start", width:(cp/4500*300),minWidth: 50, borderWidth: 1, borderRadius: 20, backgroundColor:(setColorCP(cp))}}>
+                <View style={{alignSelf:"flex-start", width:(cp/4500*300),minWidth: 50, borderWidth: 1, borderRadius: 20, backgroundColor:(setColor(cp,4500))}}>
                     <Text style={{alignSelf: "center",fontSize: 20,  maxHeight: 30, }}>
                         {cp}
                     </Text>
