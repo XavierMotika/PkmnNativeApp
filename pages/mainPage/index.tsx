@@ -26,6 +26,7 @@ const MainPage = ({navigation} : any ) => {
         },
         {text: 'Oui', onPress: () => ( 
           LocalStorage.resetStorage(),
+          navigation.navigate("Login"),
           BackHandler.exitApp())},
       ]);
       return true;

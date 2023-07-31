@@ -31,7 +31,8 @@ const ChipType = ({ typeId }: Props ) => {
     }
 
     return (
-        <View style={{backgroundColor: getColor(type) , borderRadius: 20, borderWidth:1, paddingVertical: 4,paddingHorizontal: 10, width: 102}}>
+        <View style={{backgroundColor: getColor(type) , borderRadius: 20, borderWidth:1, paddingVertical: 4,paddingHorizontal: 10, width: 102, shadowColor: '#000',
+        shadowOffset: {width: 0,height: 2,},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,}}>
             <Text style={{fontSize: 18 , color:"#FFFFFFFF", alignSelf:"center" }}> {getLabel(type)} </Text>
         </View>
     )

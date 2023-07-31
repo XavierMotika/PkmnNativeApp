@@ -3,6 +3,9 @@ import AuthenticationService from "./Authentication";
 import adress from "app.json" ; 
 
 class PokemonService {
+  static addToTeam(id: any): ((event: import("react-native").GestureResponderEvent) => void) | undefined {
+      throw new Error("Method not implemented.");
+  }
   static async getAll(): Promise<Pokemon[]> {
     return fetch("http://"+adress.ipv4+"/pokemon/all",{
       headers: {authorization : AuthenticationService.getJwt()}

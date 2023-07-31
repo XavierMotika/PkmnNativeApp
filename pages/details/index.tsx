@@ -1,7 +1,7 @@
-import {Image, Text, View, FlatList, Button } from "react-native";
+import {Image, Text, View, FlatList, Button, GestureResponderEvent} from "react-native";
 import styles from "./style";
 import ChipType from "components/ChipType";
-import { string } from "yup";
+import PokemonService from "services/pokemonService";
 
 const Details = ({route , navigation}: any) => {
 const { picture ,id, name,hp,cp,types} = route.params;
@@ -24,6 +24,14 @@ function addZeroes (id : number) {
             interation--;
         }
         return colors[0];
+    }
+
+    function addToTeam(): void {
+        PokemonService.addToTeam(id);
+    }
+
+    function goToEdit(): void {
+        navigation.navigate("Edit", ({picture : picture, id: id, name: name, hp: hp, cp: cp, types : types }));
     }
 
   return (
@@ -57,8 +65,8 @@ function addZeroes (id : number) {
             </View>
         </View>
         <View style={styles.bottom}>
-                <Button title="Ajouter à l'équipe"  color="#DF0101"/>
-                <Button title="Editer le pokémon" color="#DF0101"/>
+                <Button title="Ajouter à l'équipe"  color="#DF0101" onPress={addToTeam}/>
+                <Button title="Editer le pokémon" color="#DF0101" onPress={goToEdit}/>
         </View>
     </View>
   );

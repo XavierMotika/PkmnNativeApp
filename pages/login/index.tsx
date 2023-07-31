@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { Formik, useFormik } from "formik";
+import {Formik} from "formik";
 import * as yup from "yup";
 import AuthenticationService from "services/Authentication";
 import { Button, ImageBackground, Text, TextInput, View } from "react-native";
 import styles from "./style";
-import LocalStorage from "data/LocalStorage";
 
-
-interface Props {
-  setIsAuthenticated: Function;
-  
-}
 
 const image = {uri: 'https://cdn.dribbble.com/users/1407587/screenshots/3014076/media/48ac35c2ae3f68e2d2f0a346f5d1f1de.gif'};
-const Login = ({ setIsAuthenticated }: Props) => {
-  const [error, setError] = useState<boolean>(false);
-  
 
+interface Props {
+
+}
+
+
+const Login = ({navigation} : any) => {
+  const [error, setError] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(AuthenticationService.isAuthenticated);
   const validationSchema = yup.object().shape({
     login: yup
       .string()
@@ -28,23 +27,26 @@ const Login = ({ setIsAuthenticated }: Props) => {
       .test("3len", "au moins 3 caractères", (val: string) => val.length >= 3),
   });
 
+  
+
   return (
     <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-      <Formik 
-      
+      <Formik  
       initialValues={{login: "" , password: ""}}
       validationSchema={validationSchema}
-      onSubmit={ (values) => {
+      onSubmit={(values) => {
        AuthenticationService.login(
         values.login,
         values.password
       ).then((ok)=>{
         setIsAuthenticated(ok);
-        setError(!ok);
-        
+        (setError(!ok));
       });
-    }}>
-      {({ handleChange, handleBlur, handleSubmit, values }: any) => (
+      isAuthenticated? navigation.navigate("MainPage") : navigation.navigate("Login")
+    }
+    
+    }>
+      {({ handleChange,handleSubmit, handleBlur, values }: any) => (
         
           <View style={styles.inputContainer}>
             <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
@@ -57,10 +59,7 @@ const Login = ({ setIsAuthenticated }: Props) => {
       )}
       
       </Formik>
-    </ImageBackground>
-    
-
-      
+    </ImageBackground>   
   );
 };
 
