@@ -6,13 +6,13 @@ import PokemonIcon from "components/PokeIcon";
 
 interface Props {
   pokemons: Pokemon[] | undefined;
-  navigate : any
+  navigate : any;
 }
 
-const PokemonList = ({ pokemons, navigate }: Props) => {
+const PokemonList = ({pokemons, navigate }: Props) => {
   return (
       <FlatList style={styles.list} data={pokemons} numColumns={3} columnWrapperStyle={{justifyContent : "space-around"}} 
-      maxToRenderPerBatch={30} renderItem={(index) => <PokemonIcon pokemon={index.item} navigate={navigate}/>}/>
+      maxToRenderPerBatch={20} renderItem={(index) => <PokemonIcon pokemon={index.item} navigate={navigate}/>}/>
   );
 };
 

@@ -15,12 +15,7 @@ const PokemonIcon = ({ pokemon, navigate }: Props ) => {
   const goTo = () => {
     
     navigate.navigate("Details" , {
-        picture : pokemon.picture,
         id: pokemon.id,
-        name: pokemon.name,
-        hp: pokemon.hp,
-        cp: pokemon.cp,
-        types : pokemon.types
      });
      
   };

@@ -1,4 +1,8 @@
+import Pokemon from "models/pokemon";
+
 class LocalStorage {
+
+    public static newPokemon : Pokemon | undefined = undefined;
 
     private static token : string  = "";
     private static expiration: string  = "";
@@ -38,6 +42,12 @@ class LocalStorage {
         this.reloaded = "true";
     }
 
+    static sendPokemon(newPokemon: Pokemon): void {
+        this.newPokemon = newPokemon;
+    }
 
+    static getPokemon() : Pokemon | undefined {
+        return this.newPokemon;
+    }
 
 } export default LocalStorage;

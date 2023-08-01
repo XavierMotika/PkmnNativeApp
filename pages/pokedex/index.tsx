@@ -8,9 +8,9 @@ import { useEffect, useState } from 'react';
 import PokemonService from 'services/pokemonService';
 import Pokemon from 'models/pokemon';
 import PokemonList from 'components/PokeList';
+import LocalStorage from 'data/LocalStorage';
 
 const Pokedex = ({navigation} : any ) => {
-    
     const [searchText, setSearchText] = useState<string>("");
     const [pokeList, setPokeList] = useState<Pokemon[]>();
 
@@ -37,3 +37,4 @@ const Pokedex = ({navigation} : any ) => {
 
 export default Pokedex;
 
+ 

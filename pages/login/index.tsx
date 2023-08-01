@@ -38,11 +38,10 @@ const Login = ({navigation} : any) => {
        AuthenticationService.login(
         values.login,
         values.password
-      ).then((ok)=>{
-        setIsAuthenticated(ok);
-        (setError(!ok));
+      ).then((ok)=>{ok? 
+        (setIsAuthenticated(ok), (setError(!ok)), navigation.navigate("MainPage")) :
+        (setIsAuthenticated(!ok), (setError(ok)))
       });
-      isAuthenticated? navigation.navigate("MainPage") : navigation.navigate("Login")
     }
     
     }>

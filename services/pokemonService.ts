@@ -3,6 +3,7 @@ import AuthenticationService from "./Authentication";
 import adress from "app.json" ; 
 
 class PokemonService {
+
   static addToTeam(id: any): ((event: import("react-native").GestureResponderEvent) => void) | undefined {
       throw new Error("Method not implemented.");
   }
@@ -10,9 +11,8 @@ class PokemonService {
     return fetch("http://"+adress.ipv4+"/pokemon/all",{
       headers: {authorization : AuthenticationService.getJwt()}
       
-    }).then((pokemons) => pokemons.json())
-      .catch((error)=>{
-        console.error(error);
+    }).then((pokemons) => (pokemons.json()))
+      .catch((error)=>{ console.error(error);
         throw error;
       }) ; 
   };
@@ -39,7 +39,7 @@ class PokemonService {
   })
   };
 
-  static async save  (newPokemon: Pokemon): Promise<boolean>  {
+  static async save (newPokemon: Pokemon): Promise<boolean>  {
     return fetch("http://"+adress.ipv4+"/pokemon/edit/" + newPokemon.id, {
           method: 'POST',
           body: JSON.stringify(newPokemon
@@ -53,8 +53,7 @@ class PokemonService {
             console.error(error);
             throw error;
     })
-  }
-  
+  } 
 }
 
 export default PokemonService;
