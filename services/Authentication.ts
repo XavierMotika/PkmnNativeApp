@@ -33,7 +33,9 @@ class AuthenticationService {
         LocalStorage.setToken(response.jwt);
         LocalStorage.setExpiration(response.expiration);
         LocalStorage.setRole(JSON.stringify(response.user));
-        LocalStorage.setReloaded("false");
+        LocalStorage.setUsername(JSON.stringify(response.user.username))
+        LocalStorage.setReloaded("false")
+        LocalStorage.setTeam(response.user.team);
       }
     });
     // On retourne la promesse de type boolean (le resolve) par la methode isAuthenticated au bout de 
