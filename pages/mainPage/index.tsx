@@ -4,10 +4,29 @@ import { StatusBar } from 'expo-status-bar';
 
 import styles from 'pages/mainPage/style';
 import LocalStorage from 'data/LocalStorage';
-
-const PlaceholderImage : {uri : string} = require('../../assets/images/Kanto.png'); //à changer avec un API dans le futur
+import MapView from 'react-native-maps';
+import GetLocation from 'react-native-get-location'
+import { useState } from 'react';
 
 const MainPage = ({navigation} : any ) => {
+
+  const [latitude, setLatitude] = useState<number>()
+  const [longitude, setLongitude] = useState<number>()
+
+  useState(()=> {
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 60000,
+    }).then(location => {
+      setLatitude(location.latitude)
+      setLongitude(location.longitude)
+    }).catch(error => {
+      console.log(error)
+      setLatitude(50.633333)
+      setLongitude(3.066667)
+    })
+  })
+  
 
     function goToTeam () {
         navigation.navigate("Team")
@@ -38,7 +57,12 @@ const MainPage = ({navigation} : any ) => {
 
       
       <View style={styles.imageContainer}>
-        <Image source={PlaceholderImage} style={styles.image} />
+        <MapView style={styles.image} initialRegion={{
+          latitude: latitude? latitude : 50.633333,
+          longitude: longitude? longitude : 3.066667,
+          latitudeDelta: 1,
+          longitudeDelta: 1,
+        }}/>
       </View>
       <View style={styles.optionsText}>
         <Text >Click on the icons below to navigate the app</Text>

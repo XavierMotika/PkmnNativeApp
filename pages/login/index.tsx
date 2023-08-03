@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Formik} from "formik";
+import {ErrorMessage, Formik} from "formik";
 import * as yup from "yup";
 import AuthenticationService from "services/Authentication";
 import { Button, ImageBackground, Text, TextInput, View } from "react-native";
@@ -15,19 +15,29 @@ interface Props {
 
 const Login = ({navigation} : any) => {
   const [error, setError] = useState<boolean>(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(AuthenticationService.isAuthenticated);
   const validationSchema = yup.object().shape({
     login: yup
       .string()
-      .required("obligatoire")
+      .required("Nom d'utilisateur requis")
       .test("3len", "au moins 3 caractères", (val: string) => val.length >= 3),
     password: yup
       .string()
-      .required("obligatoire")
+      .required("Mot de passe requis")
       .test("3len", "au moins 3 caractères", (val: string) => val.length >= 3),
   });
 
-  
+
+  function checkForError(touched: any, errors: any, error: boolean): React.ReactNode {
+    if (touched.login && Boolean(errors.login)) return (
+      (touched.login && errors.login)  
+    );
+    if (touched.password && Boolean(errors.password)) return (
+      (touched.password && errors.password)  
+    );
+    if (error) return (
+      "Connexion impossible"  
+    );
+  }
 
   return (
     <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -35,25 +45,26 @@ const Login = ({navigation} : any) => {
       initialValues={{login: "" , password: ""}}
       validationSchema={validationSchema}
       onSubmit={(values) => {
+        setError(false);
        AuthenticationService.login(
         values.login,
         values.password
       ).then((ok)=>{ok? 
-        (setIsAuthenticated(ok), (setError(!ok)), navigation.navigate("MainPage")) :
-        (setIsAuthenticated(!ok), (setError(ok)))
+        navigation.navigate("MainPage") :
+        setError(!ok)
       });
     }
     
     }>
-      {({ handleChange,handleSubmit, handleBlur, values }: any) => (
+      {({ handleChange,handleSubmit, handleBlur, values, touched, errors}: any) => (
         
           <View style={styles.inputContainer}>
-            <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
+            <TextInput style={styles.input} onChangeText={handleChange('login')} value={values.login}  
             onBlur={handleBlur('login')} placeholder="Entrer le nom d'utilisateur" />
-            <TextInput style={styles.input} onChangeText={handleChange('password')} value={values.password} // error={formik.touched.login && Boolean(formik.errors.login) } helperText={formik.touched.login && formik.errors.login}
+            <TextInput style={styles.input} onChangeText={handleChange('password')} value={values.password}
             onBlur={handleBlur('password')} placeholder="Entrer le mot de passe" secureTextEntry={true} />  
             <Button onPress={handleSubmit} title="Se connecter" />
-            <Text >{error ? "connexion impossible" : ""}</Text>
+            <Text numberOfLines={2} style={{backgroundColor:"#FA0000", color:"#FFFFFF"}}>{checkForError(touched,errors,error)}</Text>
           </View>     
       )}
       
