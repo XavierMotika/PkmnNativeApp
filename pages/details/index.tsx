@@ -5,6 +5,7 @@ import PokemonService from "services/pokemonService";
 import Pokemon from "models/pokemon";
 import {useEffect, useState} from "react";
 import {useIsFocused } from "@react-navigation/native";
+import LocalStorage from "data/LocalStorage";
 
 const Details = ({route , navigation}: any) => {
 const {id} = route.params;
@@ -21,14 +22,26 @@ function addZeroes (id : number) {
         return colors[(Math.floor(test))];
     }
 
-    function addToTeam(): void {
-        PokemonService.addToTeam(id);
+    function addOrRemove(pId : number): void {
+        if(LocalStorage.getTeam().includes(pId)){
+            PokemonService.removeFromTeam(id)
+          }else (
+            PokemonService.addToTeam(id)
+            );
+            navigation.navigate("Team")
     }
 
     function goToEdit(): void {
         navigation.navigate("Edit", ({picture : pokemon?.picture, pokemonId: pokemon?.id, pokemonName: pokemon?.name, pokemonHp: pokemon?.hp, pokemonCp: pokemon?.cp, pokemonTypes : pokemon?.types }));
     }
-  if (pokemon !== undefined) return (
+  function isInTeam(pId : number): string {
+      if(LocalStorage.getTeam().includes(pId)){
+        return "Retirer de l'équipe";
+      }else return "Ajouter à l'équipe";
+  }
+
+if (pokemon!== undefined) {
+    if (isFocused) return (
     <View style={styles.container}>
         <View style={styles.top}>
             <Text  style={styles.title}>
@@ -59,11 +72,12 @@ function addZeroes (id : number) {
             </View>
         </View>
         <View style={styles.bottom}>
-                <Button title="Ajouter à l'équipe"  color="#DF0101" onPress={addToTeam}/>
+                <Button title={isInTeam(id)}  color="#DF0101" onPress={()=>addOrRemove(id)}/>
                 <Button title="Editer le pokémon" color="#DF0101" onPress={goToEdit}/>
         </View>
     </View>
   );
+}
 };
 
 export default Details;

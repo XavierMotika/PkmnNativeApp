@@ -11,6 +11,7 @@ import PokemonTypeService from "services/typeService";
 import PokemonType from "models/pokemonType";
 import PressableChipType from "components/PressableChip";
 import LocalStorage from "data/LocalStorage";
+import { useIsFocused } from "@react-navigation/native";
 
 
 const Edit = ({route, navigation} : any) => {
@@ -20,9 +21,10 @@ const Edit = ({route, navigation} : any) => {
     const [allTypes,setTypes] = useState<PokemonType[]>();
     const [newPokemonTypes,setPokemonTypes] = useState<number[]>(pokemonTypes);
     const [modalErrorMessage,setModalError] = useState<boolean>(false);
+    const isFocused = useIsFocused();
     useEffect(()=>{
         PokemonTypeService.getTypes().then((allTypes)=> setTypes(allTypes));
-    },[])
+    },[isFocused])
 
     const validationSchema = yup.object().shape({
     name: yup
@@ -32,13 +34,11 @@ const Edit = ({route, navigation} : any) => {
     hp: yup
         .number()
         .required("obligatoire")
-        .min(0, "au minimum 0")
-        .max(4000, "au maximum 4000"),
+        .test("0<hp<350","Poits de vie doivent être entre 0 et 350", (val : number) => 0<val && val<350),
     cp: yup
         .number()
         .required("obligatoire")
-        .min(0, "au minimum 0")
-        .max(4000, "au maximum 4000"),
+        .test("0<cp<4500","Puissance de combat doit être entre 0 et 4500", (val : number) => 0<val && val<4500),
     types: yup
         .array()
         .test(

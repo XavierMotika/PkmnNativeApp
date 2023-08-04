@@ -5,8 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import styles from 'pages/team/style';
 import LocalStorage from 'data/LocalStorage';
 import Card from 'components/Card';
-import PokemonService from 'services/pokemonService';
-import Pokemon from 'models/pokemon';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
   navigation : any
@@ -14,10 +13,9 @@ interface Props {
 
 const Team = ({navigation}: Props) => {
 
-  
+  const isFocused = useIsFocused()
 
-    return(
-
+  if (isFocused) return(
     <View style={styles.container}>
       <FlatList data={LocalStorage.getTeam()} renderItem={(id) =><Card pokemonId={id.item} navigation={navigation}/>}/>
       <StatusBar style="light" />

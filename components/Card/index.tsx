@@ -15,9 +15,10 @@ interface Props {
 const Card = ({pokemonId , navigation}:Props) => {
     
     const [pokemon,setPokemon] = useState<Pokemon>();
+    const isFocused = useIsFocused()
     useEffect(()=>{PokemonService.getOne(String(pokemonId)).then((pokemon)=> 
     setPokemon(pokemon)
-    )},[])
+    )},[isFocused])
 
     if (pokemon !== undefined) return (
         <View style={styles.list}>

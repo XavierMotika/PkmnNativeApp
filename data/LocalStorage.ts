@@ -70,4 +70,14 @@ class LocalStorage {
         return this.newPokemon;
     }
 
+    static addToTeam(pId : number) {
+        this.team.push(pId);
+    }
+
+    static removeFromTeam(pId : number){
+        let newTeam : number[] = this.team;
+        newTeam.splice(newTeam.indexOf(pId),1)
+        this.team = newTeam
+    }
+
 } export default LocalStorage;
